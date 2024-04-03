@@ -42,3 +42,6 @@ yarn.lock
 
 # Ignore built files
 /build
+
+# Ignore example files
+example.*
