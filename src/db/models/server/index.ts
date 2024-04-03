@@ -12,6 +12,7 @@ export class Server extends Model<
   declare id: CreationOptional<string>;
   declare name: string;
   declare description: string;
+  declare isPublic: CreationOptional<boolean>;
 
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;

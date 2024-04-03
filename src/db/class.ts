@@ -25,6 +25,10 @@ export class DB {
           type: DataTypes.STRING,
           allowNull: true,
         },
+        isPublic: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false,
+        },
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
       },

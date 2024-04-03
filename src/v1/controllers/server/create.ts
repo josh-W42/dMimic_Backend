@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { Server } from "../../../db/models";
 
 export const create: RequestHandler = async (req, res) => {
-  const { name, description } = req.body;
+  const { name, description, isPublic } = req.body;
 
   if (!name) {
     res.status(400).json({
@@ -16,6 +16,7 @@ export const create: RequestHandler = async (req, res) => {
     const newServer = await Server.create({
       name,
       description,
+      isPublic,
     });
 
     res.status(201).json({
