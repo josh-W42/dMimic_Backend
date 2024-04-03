@@ -30,6 +30,8 @@ export class DMimicService {
   }
 
   public async ConnectDB() {
-    await this.db.TestConnection();
+    if (await this.db.TestConnection()) {
+      this.db.InitModels();
+    }
   }
 }
