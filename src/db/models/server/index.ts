@@ -9,7 +9,7 @@ export class Server extends Model<
   InferAttributes<Server>,
   InferCreationAttributes<Server>
 > {
-  declare id: string;
+  declare id: CreationOptional<string>;
   declare name: string;
   declare description: string;
 

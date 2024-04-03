@@ -1,8 +1,7 @@
 import { RequestHandler } from "express";
-import { IServer } from "../../models/server";
-import { DB } from "../../models";
+import { Server } from "../../../db/models";
 
-export const create: RequestHandler = (req, res) => {
+export const create: RequestHandler = async (req, res) => {
   const { name, description } = req.body;
 
   if (!name) {
@@ -13,17 +12,22 @@ export const create: RequestHandler = (req, res) => {
     return;
   }
 
-  const newServer: IServer = {
-    id: Math.floor(Math.random() * 1000).toString(),
-    name,
-    description,
-  };
+  try {
+    const newServer = await Server.create({
+      name,
+      description,
+    });
 
-  DB.servers.push(newServer);
-
-  res.status(201).json({
-    Result: "Success",
-    Status: 201,
-    Data: newServer,
-  });
+    res.status(201).json({
+      Result: "Success",
+      Status: 201,
+      Data: newServer,
+    });
+  } catch (err) {
+    console.error("Failed to create new server: ", err);
+    res.status(500).json({
+      Result: "Failed to Create New Server",
+      Status: 500,
+    });
+  }
 };
