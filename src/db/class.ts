@@ -31,14 +31,16 @@ export class DB {
         },
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
+        deletedAt: DataTypes.DATE,
       },
       {
         tableName: "servers",
+        paranoid: true,
         sequelize: this.sequelize,
       }
     );
 
-    this.sequelize.sync();
+    this.sequelize.sync({ alter: true });
   }
 
   public async TestConnection(): Promise<boolean> {
