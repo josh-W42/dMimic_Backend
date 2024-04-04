@@ -3,7 +3,7 @@ import { Server } from "../../../db/models";
 
 export const update: RequestHandler = async (req, res) => {
   const { serverID } = req.params;
-  const { name, description, isPublic } = req.body;
+  const payload = req.body;
 
   if (!serverID) {
     res.status(400).json({
@@ -13,25 +13,28 @@ export const update: RequestHandler = async (req, res) => {
     });
   }
   try {
-    const numberUpdated = await Server.update(
-      { name, description, isPublic },
+    const [rowsAffectedCount, rowsAffected] = await Server.update(
+      { ...payload },
       {
         where: {
           $id$: serverID,
         },
+        returning: true,
       }
     );
 
-    if (numberUpdated[0] > 0) {
+    if (rowsAffectedCount > 0) {
       res.status(200).json({
         Result: "Server Updated Successfully",
         Status: 200,
+        Data: rowsAffected[0],
       });
     } else {
       res.status(200).json({
         Result: "Success",
         Status: 200,
         Reason: "No Changes Were Made",
+        Data: {},
       });
     }
   } catch (error) {
@@ -40,6 +43,7 @@ export const update: RequestHandler = async (req, res) => {
       Result: "Failed to Update Server",
       Status: 500,
       Reason: "An Unknown Error Occurred",
+      Data: {},
     });
   }
 };
