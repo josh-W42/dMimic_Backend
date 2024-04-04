@@ -8,3 +8,4 @@ export const serverRouter = Router();
 serverRouter.post("/new", controllers.server.create);
 serverRouter.get("/search", controllers.server.search);
 serverRouter.put("/:serverID/update", controllers.server.update);
+serverRouter.delete("/:serverID/delete", controllers.server.softDelete);
