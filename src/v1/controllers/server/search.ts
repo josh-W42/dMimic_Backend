@@ -30,6 +30,7 @@ export const search: RequestHandler = async (req, res) => {
       Data: foundServers,
     });
   } catch (err) {
+    console.error("Failed to Perform Search: ", err);
     res.status(500).json({
       Result: "Failed to Perform Search",
       Status: 500,
