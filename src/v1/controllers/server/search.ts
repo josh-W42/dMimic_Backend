@@ -21,7 +21,6 @@ export const search: RequestHandler = async (req, res) => {
           [Op.iLike]: `%${name}`,
         },
       },
-      attributes: ["id", "name", "description"],
     });
 
     res.status(200).json({
