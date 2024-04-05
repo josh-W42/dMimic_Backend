@@ -1,5 +1,5 @@
 import { DataTypes, Sequelize } from "sequelize";
-import { Server } from "./models";
+import { Channel, Server } from "./models";
 
 export class DB {
   private sequelize: Sequelize;
@@ -39,6 +39,44 @@ export class DB {
         sequelize: this.sequelize,
       }
     );
+
+    Channel.init(
+      {
+        id: {
+          type: DataTypes.UUID,
+          defaultValue: DataTypes.UUIDV4,
+          primaryKey: true,
+        },
+        name: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
+        description: {
+          type: DataTypes.STRING,
+          allowNull: true,
+        },
+        isPublic: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false,
+        },
+        isVoiceChannel: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false,
+        },
+        createdAt: DataTypes.DATE,
+        updatedAt: DataTypes.DATE,
+      },
+      {
+        tableName: "channels",
+        sequelize: this.sequelize,
+      }
+    );
+
+    Server.hasMany(Channel, {
+      sourceKey: "id",
+      foreignKey: "serverID",
+      as: "channels",
+    });
 
     this.sequelize.sync({ alter: true });
   }
