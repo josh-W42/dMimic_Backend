@@ -1,3 +1,4 @@
+import { addChannel } from "./addChannel";
 import { create } from "./create";
 import { softDelete } from "./delete";
 import { search } from "./search";
@@ -8,4 +9,5 @@ export const serverCtrl = {
   search,
   update,
   softDelete,
+  addChannel,
 };
