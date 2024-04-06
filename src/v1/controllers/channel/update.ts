@@ -11,6 +11,7 @@ export const update: RequestHandler = async (req, res) => {
       Status: 400,
       Reason: "Channel ID Missing",
     });
+    return;
   }
 
   try {
