@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { serverRouter } from "./server";
+import { channelRouter } from "./channel";
 
 export const mainRouter = Router();
 
@@ -18,6 +19,7 @@ mainRouter.all("/*", (req, res, next) => {
 });
 
 mainRouter.use("/servers", serverRouter);
+mainRouter.use("/channels", channelRouter);
 
 mainRouter.all("/*", (req, res) => {
   res.status(404).json({
