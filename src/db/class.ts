@@ -12,8 +12,7 @@ export class DB {
     Server.init(
       {
         id: {
-          type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV4,
+          type: DataTypes.STRING,
           primaryKey: true,
         },
         name: {
@@ -43,8 +42,7 @@ export class DB {
     Channel.init(
       {
         id: {
-          type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV4,
+          type: DataTypes.STRING,
           primaryKey: true,
         },
         name: {

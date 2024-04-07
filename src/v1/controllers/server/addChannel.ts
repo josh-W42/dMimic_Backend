@@ -1,4 +1,5 @@
 import { RequestHandler } from "express";
+import { nanoid } from "nanoid";
 import { Server } from "../../../db/models";
 
 export const addChannel: RequestHandler = async (req, res) => {
@@ -37,6 +38,7 @@ export const addChannel: RequestHandler = async (req, res) => {
 
   try {
     const newChannel = await server.createChannel({
+      id: nanoid(),
       name,
       description,
       isPublic,

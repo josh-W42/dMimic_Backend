@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { Server } from "../../../db/models";
+import { nanoid } from "nanoid";
 
 export const create: RequestHandler = async (req, res) => {
   const { name, description, isPublic } = req.body;
@@ -14,6 +15,7 @@ export const create: RequestHandler = async (req, res) => {
 
   try {
     const newServer = await Server.create({
+      id: nanoid(),
       name,
       description,
       isPublic,
