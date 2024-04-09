@@ -17,7 +17,9 @@ export class DMimicService {
   }
 
   public Init() {
-    this.app.use(morgan("combined"));
+    this.app.disable('x-powered-by');
+
+    this.app.use(morgan('combined'));
     this.app.use(cors());
     this.app.use(express.json());
 
