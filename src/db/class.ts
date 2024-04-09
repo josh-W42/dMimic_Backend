@@ -1,5 +1,5 @@
-import { DataTypes, Sequelize } from "sequelize";
-import { Channel, Server } from "./models";
+import { DataTypes, Sequelize } from 'sequelize';
+import { Channel, Message, Server } from './models';
 
 export class DB {
   private sequelize: Sequelize;
@@ -33,7 +33,7 @@ export class DB {
         deletedAt: DataTypes.DATE,
       },
       {
-        tableName: "servers",
+        tableName: 'servers',
         paranoid: true,
         sequelize: this.sequelize,
       }
@@ -65,15 +65,44 @@ export class DB {
         updatedAt: DataTypes.DATE,
       },
       {
-        tableName: "channels",
+        tableName: 'channels',
+        sequelize: this.sequelize,
+      }
+    );
+
+    Message.init(
+      {
+        id: {
+          type: DataTypes.STRING,
+          primaryKey: true,
+        },
+        content: {
+          type: DataTypes.STRING,
+          defaultValue: '',
+        },
+        imageUrls: {
+          type: DataTypes.ARRAY(DataTypes.STRING),
+          defaultValue: [],
+        },
+        createdAt: DataTypes.DATE,
+        updatedAt: DataTypes.DATE,
+      },
+      {
+        tableName: 'messages',
         sequelize: this.sequelize,
       }
     );
 
     Server.hasMany(Channel, {
-      sourceKey: "id",
-      foreignKey: "serverID",
-      as: "channels",
+      sourceKey: 'id',
+      foreignKey: 'serverID',
+      as: 'channels',
+    });
+
+    Channel.hasMany(Message, {
+      sourceKey: 'id',
+      foreignKey: 'channelID',
+      as: 'messages',
     });
 
     this.sequelize.sync({ alter: true });
@@ -82,10 +111,10 @@ export class DB {
   public async TestConnection(): Promise<boolean> {
     try {
       await this.sequelize.authenticate();
-      console.log("Connection to Database Successful");
+      console.log('Connection to Database Successful');
       return true;
     } catch (error) {
-      console.error("Unable to connect to database:", error);
+      console.error('Unable to connect to database:', error);
       return false;
     }
   }
