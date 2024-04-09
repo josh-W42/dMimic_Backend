@@ -27,6 +27,15 @@ export class DMimicService {
     this.port = process.env.PORT || 8000;
 
     this.app.use(`${this.BaseURL}${this.APIversion}`, mainRouter);
+
+    this.app.use((req, res) => {
+      res.status(404).json({
+        Response: 'Page Not Found',
+        Status: 404,
+        RequestedURL: req.originalUrl,
+      });
+    });
+
     this.app.listen(this.port, () => {
       console.log('API Running on PORT: ', this.port);
     });

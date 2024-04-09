@@ -1,11 +1,11 @@
-import { Router } from "express";
-import { serverRouter } from "./server";
-import { channelRouter } from "./channel";
+import { Router } from 'express';
+import { serverRouter } from './server';
+import { channelRouter } from './channel';
 
 export const mainRouter = Router();
 
 // Not Definite but wanted to try it out.
-mainRouter.all("/*", (req, res, next) => {
+mainRouter.all('/*', (req, res, next) => {
   const time = new Date(Date.now());
   console.log({
     TimeStamp: time.getTime(),
@@ -18,13 +18,5 @@ mainRouter.all("/*", (req, res, next) => {
   next();
 });
 
-mainRouter.use("/servers", serverRouter);
-mainRouter.use("/channels", channelRouter);
-
-mainRouter.all("/*", (req, res) => {
-  res.status(404).json({
-    Response: "Page Not Found",
-    Status: 404,
-    RequestedURL: req.originalUrl,
-  });
-});
+mainRouter.use('/servers', serverRouter);
+mainRouter.use('/channels', channelRouter);
