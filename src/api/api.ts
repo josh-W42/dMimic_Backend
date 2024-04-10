@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { mainRouter } from '../v1/routes';
 import { DB } from '../db/class';
+import helmet from 'helmet';
 
 export class DMimicService {
   private app: express.Express;
@@ -17,12 +18,12 @@ export class DMimicService {
   }
 
   public Init() {
-    // Helps reduce fingerprinting.
-    this.app.disable('x-powered-by');
-
     this.app.use(morgan('combined'));
     this.app.use(cors());
     this.app.use(express.json());
+    // Sets several http headers to increase security.
+    // https://helmetjs.github.io/
+    this.app.use(helmet());
 
     this.port = process.env.PORT || 8000;
 
