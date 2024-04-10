@@ -40,6 +40,31 @@ export class DMimicService {
     this.app.listen(this.port, () => {
       console.log('API Running on PORT: ', this.port);
     });
+
+    /**
+     * // When an SSL Certificate and key is obtained and approved by a CA:
+     * import { createServer as createHttpServer } from 'http';
+     * import { createServer as createHttpsServer } from 'https';
+     * import fs from 'fs';
+     *
+     * createHttpServer((req, res) => {
+     *  res.writeHead(301, { 'Location': 'https://' + req.headers['host'] + req.url });
+     *  res.end
+     * });
+     *
+     * createHttpsServer({
+     *   key: fs.readFileSync('server.key'),
+     *   cert: fs.readFileSync('server.crt'),
+     *   ca: [
+     *     fs.readFileSync('intermediate1.crt'),
+     *     fs.readFileSync('intermediate2.crt'),
+     *     // ...
+     *   ],
+     * }, (req, res) => {
+     *   // ...
+     * }).listen(443);
+     *
+     */
   }
 
   public async ConnectDB() {
